@@ -1,3 +1,3 @@
 WhatsTheDealWithRails::Application.routes.draw do
-  # no routes yet
+  resources :order_logs
 end
