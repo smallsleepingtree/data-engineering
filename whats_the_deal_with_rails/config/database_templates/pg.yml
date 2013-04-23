@@ -1,0 +1,20 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  user: whats_the_deal
+  pool: 5
+
+development:
+  <<: *default
+  database: whats_the_deal_dev
+
+test: &test
+  <<: *default
+  database: whats_the_deal_test
+
+cucumber:
+  <<: *test
+
+production:
+  <<: *default
+  database: whats_the_deal

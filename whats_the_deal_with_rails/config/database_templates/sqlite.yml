@@ -11,9 +11,9 @@ test: &test
   <<: *default
   database: db/test.sqlite3
 
+cucumber:
+  <<: *test
+
 production:
   <<: *default
   database: db/production.sqlite3
-
-cucumber:
-  <<: *test

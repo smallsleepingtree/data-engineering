@@ -13,3 +13,6 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+
+# Ignore database.yml file - generated from template via rake task
+/config/database.yml

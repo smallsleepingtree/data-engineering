@@ -1,0 +1,21 @@
+default: &default
+  adapter: mysql2
+  encoding: utf8
+  user: whats_the_deal
+  pool: 5
+  socket: /tmp/mysql.sock
+
+development:
+  <<: *default
+  database: whats_the_deal_dev
+
+test: &test
+  <<: *default
+  database: whats_the_deal_test
+
+cucumber:
+  <<: *test
+
+production:
+  <<: *default
+  database: whats_the_deal
