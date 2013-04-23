@@ -1,5 +1,6 @@
 Feature: User uploads file
 
+  @wip
   Scenario: User is authorized, file is valid
     Given I am an authorized user
 
@@ -11,6 +12,7 @@ Feature: User uploads file
     And I see the file in the list of recent uploads
     And I see the gross revenue from the uploaded file
 
+  @tba
   Scenario: User is authorized, file is invalid
     Given I am an authorized user
 
@@ -21,6 +23,7 @@ Feature: User uploads file
     Then I see an error message
     And I don't see the file in the list of recent uploads
 
+  @tba
   Scenario: User is not authorized
     Given I am an unauthorized user
 
