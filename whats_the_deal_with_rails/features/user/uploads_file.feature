@@ -11,7 +11,6 @@ Feature: User uploads file
     And I see the file in the list of recent uploads
     And I see the gross revenue from the uploaded file
 
-  @tba
   Scenario: User is authorized, file is invalid
     Given I am an authorized user
 
