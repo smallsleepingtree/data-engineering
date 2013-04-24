@@ -1,9 +1,30 @@
-Given /^I am an authorized user$/ do
-  # We don't need the concept of authorization or even authentication with the
-  # first story - it only becomes explicit when we assert for its absence.
+Given /^I am an (un)?authorized user$/ do |unauthorized|
+  @mental_user = {
+    :email => 'user@example.com',
+    :password => 'password'
+  }
+  @current_user = FactoryGirl.create(:user, {
+    :email => @mental_user[:email],
+    :password => @mental_user[:password],
+    :authorized => !unauthorized
+  })
+end
+
+Given /^I do not have a user account$/ do
+  # no-op step, only for specification clarity
 end
 
 When /^I sign in$/ do
-  # Authentication is implicit for now - all "users" of the site are
-  # authenticated.
+  visit new_session_url
+  fill_in :session_email, :with => @mental_user[:email]
+  fill_in :session_password, :with => @mental_user[:password]
+  click_button 'commit-button'
+end
+
+Then /^I am informed that I am unauthorized$/ do
+  page.should have_content(I18n.t('unauthorized'))
+end
+
+Then /^I am asked to sign in$/ do
+  page.should have_content(I18n.t('session.needed'))
 end

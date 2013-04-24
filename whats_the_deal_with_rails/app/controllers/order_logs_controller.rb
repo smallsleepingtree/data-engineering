@@ -1,4 +1,7 @@
 class OrderLogsController < ApplicationController
+  before_filter :authenticate_user!
+  before_filter :require_authorization!
+
   def new
     @order_log = OrderLog.new
   end

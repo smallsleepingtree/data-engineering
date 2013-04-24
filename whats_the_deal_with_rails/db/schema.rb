@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130424063046) do
+ActiveRecord::Schema.define(:version => 20130424092412) do
 
   create_table "order_logs", :force => true do |t|
     t.integer  "gross_revenue_cents"
@@ -20,5 +20,16 @@ ActiveRecord::Schema.define(:version => 20130424063046) do
     t.datetime "updated_at",          :null => false
     t.string   "filename"
   end
+
+  create_table "users", :force => true do |t|
+    t.string   "email",                              :null => false
+    t.string   "password_digest",                    :null => false
+    t.boolean  "authorized",      :default => false, :null => false
+    t.boolean  "admin",           :default => false, :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
+  end
+
+  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
 
 end

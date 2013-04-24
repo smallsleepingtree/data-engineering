@@ -4,18 +4,26 @@
 en:
   titles:
     application: WHAT'S THE DEAL
+    limbo: YOU ARE IN LIMBO
     sub:
       upload_order_log: 'Upload Order Log'
       order_log_index: 'Order Logs'
+      sign_in: 'Sign In'
 
   helpers:
     submit:
       order_log:
         create: "Upload File"
+      session:
+        create: "Sign In"
 
   errors:
     messages:
       not_tab_separated: "does not appear to be a tab-delimited file"
+
+  session:
+    form:
+      legend: 'Sign In'
 
   order_log:
     new: 'Upload New Order Log'

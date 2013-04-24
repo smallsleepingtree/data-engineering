@@ -1,0 +1,12 @@
+<% subtitle t('titles.sub.sign_in') %>
+<%= simple_form_for :session, :url => session_path, :html => { :class => 'form-horizontal' } do |f| %>
+  <fieldset>
+    <legend><%= t('session.form.legend') %></legend>
+    <%= f.error_notification %>
+    <%= f.input :email, :as => :email %>
+    <%= f.input :password, :as => :password %>
+    <div class="form-actions">
+      <%= f.submit t('helpers.submit.session.create'), :class => 'btn btn-primary', :id => 'commit-button' %>
+    </div>
+  </fieldset>
+<% end %>

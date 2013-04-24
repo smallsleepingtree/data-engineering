@@ -28,3 +28,7 @@ end
 Then /^I see the gross revenue from the uploaded file$/ do
   page.should have_content(Money.parse('95.0').to_s)
 end
+
+Then /^I am not able to upload a file$/ do
+  page.should_not have_css('#order_log_source_data')
+end

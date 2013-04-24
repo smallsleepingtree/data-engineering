@@ -21,7 +21,6 @@ Feature: User uploads file
     Then I see an error message
     And I don't see the file in the list of recent uploads
 
-  @tba
   Scenario: User is not authorized
     Given I am an unauthorized user
 
@@ -29,3 +28,11 @@ Feature: User uploads file
     And I choose to upload a new file
 
     Then I am informed that I am unauthorized
+    And I am not able to upload a file
+
+  Scenario: User is not signed in
+    Given I do not have a user account
+
+    When I choose to upload a new file
+
+    Then I am asked to sign in
