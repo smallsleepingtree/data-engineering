@@ -2,10 +2,21 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
+  titles:
+    application: WHAT'S THE DEAL
+    sub:
+      upload_order_log: 'Upload Order Log'
+
   helpers:
     submit:
       order_log:
         create: "Upload File"
-    label:
-      order_log:
-        file: 'Order Log File'
+
+  errors:
+    messages:
+      not_tab_separated: "does not appear to be a tab-delimited file"
+
+  order_log:
+    form:
+      legend: 'Order Log Upload'
+    uploaded: 'Your order log is now in the database!  Go pet a kitten to celebrate.'

@@ -1,9 +1,11 @@
-<%= form_for @order_log do |f| %>
-  <p>
-    <%= f.label :file %>
-    <%= f.file_field :file %>
-  </p>
-  <p>
-    <%= f.submit nil, :id => 'commit-button' %>
-  </p>
+<% subtitle t('titles.sub.upload_order_log') %>
+<%= simple_form_for @order_log, :html => { :class => 'form-horizontal' } do |f| %>
+  <fieldset>
+    <legend><%= t('order_log.form.legend') %></legend>
+    <%= f.error_notification %>
+    <%= f.input :source_data, :as => :file %>
+    <div class="form-actions">
+      <%= f.submit nil, :class => 'btn btn-primary', :id => 'commit-button' %>
+    </div>
+  </fieldset>
 <% end %>
