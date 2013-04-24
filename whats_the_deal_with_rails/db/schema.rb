@@ -11,13 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130423112020) do
+ActiveRecord::Schema.define(:version => 20130424063046) do
 
   create_table "order_logs", :force => true do |t|
     t.integer  "gross_revenue_cents"
     t.text     "source_data"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
+    t.string   "filename"
   end
 
 end

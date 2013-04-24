@@ -10,3 +10,8 @@ end
 Then /^I see a confirmation message$/ do
   page.should have_content(I18n.translate('order_log.uploaded'))
 end
+
+Then /^I see the file in the list of recent uploads$/ do
+  visit order_logs_url # in case we're not already viewing the list
+  page.should have_content('valid.tab')
+end

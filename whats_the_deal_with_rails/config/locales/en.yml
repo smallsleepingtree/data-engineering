@@ -6,6 +6,7 @@ en:
     application: WHAT'S THE DEAL
     sub:
       upload_order_log: 'Upload Order Log'
+      order_log_index: 'Order Logs'
 
   helpers:
     submit:
@@ -17,6 +18,15 @@ en:
       not_tab_separated: "does not appear to be a tab-delimited file"
 
   order_log:
+    new: 'Upload New Order Log'
     form:
       legend: 'Order Log Upload'
+      missing_filename: '(no filename)'
     uploaded: 'Your order log is now in the database!  Go pet a kitten to celebrate.'
+
+  activerecord:
+    attributes:
+      order_log:
+        id: 'ID'
+        filename: 'Filename'
+        created_at: 'Created at'

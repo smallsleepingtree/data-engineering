@@ -15,6 +15,9 @@ class OrderLog < ActiveRecord::Base
 
   def source_data=(string_or_io)
     data = string_or_io.respond_to?(:read) ? string_or_io.read : string_or_io
+    if string_or_io.respond_to?(:original_filename)
+      self.filename = string_or_io.original_filename
+    end
     write_attribute(:source_data, data)
   end
 end

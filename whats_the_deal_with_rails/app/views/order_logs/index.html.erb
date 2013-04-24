@@ -1,0 +1,22 @@
+<% subtitle t('titles.sub.order_log_index') %>
+<h1><%= t('titles.sub.order_log_index') %></h1>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= OrderLog.human_attribute_name(:id) %></th>
+      <th><%= OrderLog.human_attribute_name(:filename) %></th>
+      <th><%= OrderLog.human_attribute_name(:created_at) %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @order_logs.each do |order_log| %>
+      <tr>
+        <td><%= order_log.id %></td>
+        <td><%= order_log.filename || "<em>#{t('order_log.form.missing_filename')}</em>".html_safe %></td>
+        <td><%= order_log.created_at %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to t('order_log.new'), new_order_log_path, :class => 'btn btn-primary' %>
