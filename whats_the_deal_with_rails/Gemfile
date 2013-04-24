@@ -4,6 +4,7 @@ gem 'rails', '3.2.12'
 gem 'sqlite3' # Database driver gem - autoset
 gem 'jquery-rails'
 gem 'simple_form'
+gem 'money'
 
 group :assets do
   gem 'uglifier', '>= 1.0.3'

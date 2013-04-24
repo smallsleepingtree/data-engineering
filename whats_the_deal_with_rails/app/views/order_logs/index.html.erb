@@ -5,6 +5,7 @@
     <tr>
       <th><%= OrderLog.human_attribute_name(:id) %></th>
       <th><%= OrderLog.human_attribute_name(:filename) %></th>
+      <th><%= OrderLog.human_attribute_name(:gross_revenue) %></th>
       <th><%= OrderLog.human_attribute_name(:created_at) %></th>
     </tr>
   </thead>
@@ -13,6 +14,7 @@
       <tr>
         <td><%= order_log.id %></td>
         <td><%= order_log.filename || "<em>#{t('order_log.form.missing_filename')}</em>".html_safe %></td>
+        <td><%= order_log.gross_revenue %></td>
         <td><%= order_log.created_at %></td>
       </tr>
     <% end %>

@@ -30,3 +30,4 @@ en:
         id: 'ID'
         filename: 'Filename'
         created_at: 'Created at'
+        gross_revenue: 'Gross Revenue'

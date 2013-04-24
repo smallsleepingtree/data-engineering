@@ -1,6 +1,5 @@
 Feature: User uploads file
 
-  @wip
   Scenario: User is authorized, file is valid
     Given I am an authorized user
 

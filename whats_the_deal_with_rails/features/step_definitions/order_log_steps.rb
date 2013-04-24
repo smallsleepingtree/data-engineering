@@ -15,3 +15,7 @@ Then /^I see the file in the list of recent uploads$/ do
   visit order_logs_url # in case we're not already viewing the list
   page.should have_content('valid.tab')
 end
+
+Then /^I see the gross revenue from the uploaded file$/ do
+  page.should have_content(Money.parse('95.0').to_s)
+end

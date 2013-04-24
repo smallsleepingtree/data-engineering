@@ -1,9 +1,14 @@
 require 'csv'
+require 'money_composer'
 
 # An OrderLog represents the collection of orders added through uploading
 # a tab-delimited file.  It is responsible for aggregate reporting on said
 # collection, such as the calculation of gross revenue.
 class OrderLog < ActiveRecord::Base
+  include MoneyComposer
+
+  money :gross_revenue
+
   validates :source_data, :presence => true
   validate :source_data_is_tab_separated, :if => :source_data
 
@@ -29,5 +34,40 @@ class OrderLog < ActiveRecord::Base
       self.filename = string_or_io.original_filename
     end
     write_attribute(:source_data, data)
+  end
+
+  before_save :calculate_gross_revenue!
+
+  # This method will be called every time the object is saved;
+  # if we have source data, it will set gross_revenue to the calculated
+  # gross revenue from parsing the source data (see
+  # #aggregate_gross_revenue_from_source_data).  If no source data
+  # exists yet, we'll just set gross_revenue to nil.
+  def calculate_gross_revenue!
+    self.gross_revenue = if source_data
+      aggregate_gross_revenue_from_source_data
+    else
+      nil
+    end
+    gross_revenue
+  end
+
+  # Directly sum the gross revenue from the source data, by enumerating
+  # the order rows and aggregating the quantity * price.
+  def aggregate_gross_revenue_from_source_data
+    order_lines_from_source_data.inject(0) do |amount, order|
+      if order['item price'] && order['purchase count']
+        amount += order['item price'].to_d * order['purchase count'].to_i
+      end
+    end
+  end
+
+  # Parse the source data as tab-delimited text, and construct an array of
+  # hashes, each hash representing an order from the provided file.  Note
+  # that this method does not do any filtering based on business rules; you
+  # can end up with hashes that make no sense if the source data is not
+  # what you expect.
+  def order_lines_from_source_data
+    CSV.parse(source_data, :headers => true, :col_sep => "\t").map(&:to_hash)
   end
 end
