@@ -1,0 +1,9 @@
+<%= form_for @order_log do |f| %>
+  <p>
+    <%= f.label :file %>
+    <%= f.file_field :file %>
+  </p>
+  <p>
+    <%= f.submit nil, :id => 'commit-button' %>
+  </p>
+<% end %>
