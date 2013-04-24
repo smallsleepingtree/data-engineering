@@ -1,5 +1,9 @@
+# Helpers specific to Twitter Bootstrap.
 module Bootstrap
   module FlashHelper
+    # Call this with no arguments in any template or layout, and divs will be
+    # generated for all flash messages, using Twitter Bootstrap's alert
+    # components.  A close button will also be rendered for each message.
     def bootstrap_flash
       flash_messages = []
       flash.each do |type, message|
