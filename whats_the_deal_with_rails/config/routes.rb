@@ -6,6 +6,7 @@ WhatsTheDealWithRails::Application.routes.draw do
     end
   end
 
+  resources :users
   resources :order_logs
 
   root :to => 'order_logs#index'
