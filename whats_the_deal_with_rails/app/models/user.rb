@@ -11,7 +11,28 @@ class User < ActiveRecord::Base
     end
   end
 
+  def authorize!
+    authorize_or_reject!(:authorize)
+  end
+
+  def reject!
+    authorize_or_reject!(:reject)
+  end
+
   def self.first_admin
     where(:admin => true).first
+  end
+
+  def self.pending
+    where(:authorized => false, :rejected_at => nil)
+  end
+
+private
+
+  def authorize_or_reject!(decision)
+    self.authorized = decision == :authorize
+    self.rejected_at = decision == :authorize ? nil : Time.now
+    save!
+    AuthorizationMailer.send("#{decision}_notification".to_sym, self).deliver
   end
 end

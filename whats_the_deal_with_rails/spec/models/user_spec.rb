@@ -37,4 +37,58 @@ describe User do
       user = FactoryGirl.create(:user)
     end
   end
+
+  describe '.pending' do
+    it 'includes all users who are not authorized but also not rejected' do
+      User.pending.to_sql.should ==
+        User.where(:authorized => false, :rejected_at => nil).to_sql
+    end
+  end
+
+  describe '#authorize!' do
+    let(:user) { FactoryGirl.create(:user) }
+
+    it 'sets authorized to true' do
+      user.should_not be_authorized
+      user.authorize!
+      user.should be_authorized
+    end
+
+    it 'clears rejected_at if set' do
+      user.rejected_at = Time.now
+      user.save!
+      user.authorize!
+      user.rejected_at.should be_nil
+    end
+
+    it 'sends an email to the user' do
+      mailer = double('mailer')
+      mailer.should_receive(:deliver)
+      AuthorizationMailer.stub!(:authorize_notification).and_return(mailer)
+      user.authorize!
+    end
+  end
+
+  describe '#reject!' do
+    let(:user) { FactoryGirl.create(:authorized_user) }
+
+    it 'sets authorized to false' do
+      user.should be_authorized
+      user.reject!
+      user.should_not be_authorized
+    end
+
+    it 'sets rejected_at' do
+      user.rejected_at.should be_nil
+      user.reject!
+      user.rejected_at.should_not be_nil
+    end
+
+    it 'sends an email to the user' do
+      mailer = double('mailer')
+      mailer.should_receive(:deliver)
+      AuthorizationMailer.stub!(:reject_notification).and_return(mailer)
+      user.reject!
+    end
+  end
 end

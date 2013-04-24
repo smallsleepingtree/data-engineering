@@ -1,0 +1,7 @@
+body>.container {
+  padding-top: 10px;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  background-image: url(/assets/glyphicons-halflings.png)
+}

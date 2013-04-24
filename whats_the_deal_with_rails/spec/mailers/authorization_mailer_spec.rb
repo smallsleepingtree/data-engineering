@@ -19,4 +19,28 @@ describe AuthorizationMailer do
       mail.body.should match(user.email)
     end
   end
+
+  describe '#authorize_notification' do
+    let(:mail) { AuthorizationMailer.authorize_notification(user) }
+
+    it 'has the correct subject' do
+      mail.subject.should == I18n.t('mail.authorization.authorize.subject')
+    end
+
+    it 'is sent to the user' do
+      mail.to.should include(user.email)
+    end
+  end
+
+  describe '#reject_notification' do
+    let(:mail) { AuthorizationMailer.reject_notification(user) }
+
+    it 'has the correct subject' do
+      mail.subject.should == I18n.t('mail.authorization.reject.subject')
+    end
+
+    it 'is sent to the user' do
+      mail.to.should include(user.email)
+    end
+  end
 end

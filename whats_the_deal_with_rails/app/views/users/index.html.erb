@@ -1,0 +1,25 @@
+<% subtitle t('titles.sub.users_index') %>
+<h1><%= t('titles.sub.users_index') %></h1>
+<table class="table table-striped" id="pending-authorizations">
+  <thead>
+    <tr>
+      <th><%= User.human_attribute_name(:id) %></th>
+      <th><%= User.human_attribute_name(:email) %></th>
+      <th><%= User.human_attribute_name(:created_at) %></th>
+      <th><%= t('actions') %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @pending_users.each do |pending_user| %>
+      <tr>
+        <td><%= pending_user.id %></td>
+        <td><%= pending_user.email %></td>
+        <td><%= pending_user.created_at %></td>
+        <td>
+          <%= link_to glyph(:thumbs_up), authorize_user_path(pending_user), :method => :put, :class => 'btn btn-mini btn-success', :id => "authorize_user_#{pending_user.id}_authorization", :title => t('authorize', :default => "Authorize") %>
+          <%= link_to glyph(:thumbs_down), reject_user_path(pending_user), :method => :put, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger', :id => "reject_user_#{pending_user.id}_authorization", :title => t('reject', :default => "Reject") %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,4 +1,3 @@
-@tba
 Feature: Admin authorizes users
 
   Scenario: Authorize pending user
@@ -12,7 +11,7 @@ Feature: Admin authorizes users
     When I choose to authorize the user's request
 
     Then the user is authorized to upload files
-    And the user receives an email about their authorization
+    And the user receives an email about their approved authorization
     And I don't see the user in the authorization pending list
 
   Scenario: Reject pending user
@@ -26,5 +25,5 @@ Feature: Admin authorizes users
     When I choose to reject the user's request
 
     Then the user is not authorized to upload files
-    And the user receives an email about their rejection
+    And the user receives an email about their rejected authorization
     And I don't see the user in the authorization pending list

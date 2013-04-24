@@ -6,7 +6,13 @@ WhatsTheDealWithRails::Application.routes.draw do
     end
   end
 
-  resources :users
+  resources :users do
+    member do
+      put :authorize
+      put :reject
+    end
+  end
+
   resources :order_logs
 
   root :to => 'order_logs#index'

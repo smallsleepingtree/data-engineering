@@ -10,6 +10,17 @@ Given /^I am an (un)?authorized user$/ do |unauthorized|
   })
 end
 
+Given /^there is a user pending authorization$/ do
+  @mental_pending_user = {
+    :email => 'pending_user@example.com',
+    :password => 'password'
+  }
+  @pending_user = FactoryGirl.create(:user, {
+    :email => @mental_pending_user[:email],
+    :password => @mental_pending_user[:password]
+  })
+end
+
 Given /^I do not have a user account$/ do
   # no-op step, only for specification clarity
 end
