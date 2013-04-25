@@ -1,4 +1,3 @@
-@wip
 Feature: User views order log
 
   Scenario: User is authorized
@@ -9,6 +8,7 @@ Feature: User views order log
     And I choose to view the order log details
 
     Then I see a listing of each order in the log
+    And I see the gross revenue from the uploaded file
 
   Scenario: User is not authorized
     Given an order log has been uploaded

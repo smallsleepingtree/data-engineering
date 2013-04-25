@@ -1,0 +1,34 @@
+<% subtitle t('titles.sub.orders_index') %>
+<h1><%= t('titles.sub.orders_index') %></h1>
+<table class="table table-striped" id="orders">
+  <thead>
+    <tr>
+      <th><%= Order.human_attribute_name(:id) %></th>
+      <th><%= Order.human_attribute_name(:customer_name) %></th>
+      <th><%= Order.human_attribute_name(:merchant_name) %></th>
+      <th><%= Order.human_attribute_name(:deal_description) %></th>
+      <th><%= Order.human_attribute_name(:deal_price) %></th>
+      <th><%= Order.human_attribute_name(:quantity) %></th>
+      <th><%= Order.human_attribute_name(:total) %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @orders.each do |order| %>
+      <tr>
+        <td><%= order.id %></td>
+        <td><%= order.customer_name %></td>
+        <td><%= order.merchant_name %></th>
+        <td><%= order.deal_description %></th>
+        <td><%= order.deal_price.format %></th>
+        <td><%= order.quantity %></th>
+        <td><%= order.total.format %></th>
+      </tr>
+    <% end %>
+    <tr class="info">
+      <td colspan="6"><p class="text-right"><strong><%= OrderLog.human_attribute_name(:gross_revenue) %>:</strong></p></td>
+      <td><%= @orders.sum(&:total).format %></td>
+    </tr>
+  </tbody>
+  <tfoot>
+  </tfoot>
+</table>

@@ -37,6 +37,7 @@ class OrderLog < ActiveRecord::Base
   end
 
   before_save :calculate_gross_revenue!
+  after_create :create_orders!
 
   # This method will be called every time the object is saved;
   # if we have source data, it will set gross_revenue to the calculated
@@ -73,14 +74,20 @@ class OrderLog < ActiveRecord::Base
 
   # Generate an order for each line in the source data, and add that order to
   # #orders.
-  def create_orders!
-    OrderLog.transaction do
-      order_lines_from_source_data.each do |order_line|
-        order = Order.from_log_entry(order_line)
-        order.order_log = self
-        order.save!
+  def create_orders!(options = {})
+    # This first #save! is unfortunately necessary so we don't trigger the
+    # callback again within the transaction
+    save!
+    if orders.empty? || options[:force] == true
+      OrderLog.transaction do
+        self.orders.destroy_all
+        order_lines_from_source_data.each do |order_line|
+          order = Order.from_log_entry(order_line)
+          order.order_log = self
+          order.save!
+        end
+        save!
       end
-      save!
     end
     orders(true)
   end

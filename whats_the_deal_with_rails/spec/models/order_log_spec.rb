@@ -59,7 +59,18 @@ describe OrderLog do
   describe '#before_save' do
     it 'calculates gross revenue from source data' do
       subject.source_data = "Drink a slab\tof diet tab"
+      subject.save!
       subject.should_receive(:calculate_gross_revenue!)
+      subject.save!
+    end
+  end
+
+  describe '#after_create' do
+    it 'creates orders' do
+      subject.source_data = "Drink a slab\tof diet tab"
+      subject.should_receive(:create_orders!)
+      subject.save!
+      subject.should_receive(:create_orders!).never
       subject.save!
     end
   end
@@ -84,6 +95,24 @@ describe OrderLog do
       subject.orders.map(&:deal_description).should =~ [
         "$10 off $20 of food", "$30 of awesome for $10", "$20 Sneakers for $5", "$20 Sneakers for $5"
       ]
+    end
+
+    it 'leaves well enough alone if orders already exist' do
+      subject.source_data = "valid\tbut harmless"
+      order = FactoryGirl.create(:order, :order_log => subject)
+      subject.orders(true).should == [order]
+      subject.source_data = File.new(path_to_fixture('order_logs/valid.tab'))
+      subject.create_orders!
+      subject.orders.should == [order]
+    end
+
+    it 'refreshes order list if force option sent' do
+      subject.source_data = "valid\tbut harmless"
+      order = FactoryGirl.create(:order, :order_log => subject)
+      subject.orders(true).should == [order]
+      subject.source_data = File.new(path_to_fixture('order_logs/valid.tab'))
+      subject.create_orders!(:force => true)
+      subject.orders.count.should == 4
     end
   end
 end
