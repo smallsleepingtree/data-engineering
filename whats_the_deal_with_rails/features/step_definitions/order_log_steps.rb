@@ -1,3 +1,13 @@
+Given /^an order log has been uploaded$/ do
+  @order_log = OrderLog.new
+  @order_log.source_data = File.new(path_to_fixture('order_logs/valid.tab'))
+  @order_log.save!
+end
+
+When /^I choose to view the order log details$/ do
+  visit order_log_orders_url(@order_log)
+end
+
 When /^I choose to upload a new file$/ do
   visit new_order_log_url
 end
@@ -23,6 +33,10 @@ Then /^I (don't )?see the file in the list of recent uploads$/ do |do_not|
   else
     page.should have_content(@uploaded_file)
   end
+end
+
+Then /^I do not see the order log details$/ do
+  page.should_not have_css('#orders')
 end
 
 Then /^I see the gross revenue from the uploaded file$/ do

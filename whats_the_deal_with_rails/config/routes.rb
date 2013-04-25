@@ -13,7 +13,9 @@ WhatsTheDealWithRails::Application.routes.draw do
     end
   end
 
-  resources :order_logs
+  resources :order_logs do
+    resources :orders
+  end
 
   root :to => 'order_logs#index'
 end
