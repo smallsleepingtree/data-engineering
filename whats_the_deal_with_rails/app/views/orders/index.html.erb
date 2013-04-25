@@ -26,7 +26,7 @@
     <% end %>
     <tr class="info">
       <td colspan="6"><p class="text-right"><strong><%= OrderLog.human_attribute_name(:gross_revenue) %>:</strong></p></td>
-      <td><%= @orders.sum(&:total).format %></td>
+      <td><%= Money.parse(@orders.sum(&:total)).format %></td>
     </tr>
   </tbody>
   <tfoot>

@@ -40,28 +40,26 @@ describe OrderLog do
     end
   end
 
-  describe '#calculate_gross_revenue!' do
-    it 'returns 0 if no source data' do
-      subject.calculate_gross_revenue!.should be_zero
+  describe '#gross_revenue' do
+    it 'returns 0 if no orders' do
+      subject.gross_revenue.should be_zero
     end
 
-    it 'returns calculated gross revenue if source_data' do
+    it 'returns calculated gross revenue if orders' do
       subject.source_data = File.new(path_to_fixture('order_logs/valid.tab'))
-      subject.calculate_gross_revenue!.should == 95.0
+      subject.create_orders!
+      subject.gross_revenue.should == 95.0
     end
 
-    it 'returns 0 if source_data not well-formed' do
-      subject.source_data = "I am\tfull of\ttabs\nBUT I HAVE NO DEPTH\nand am unloved"
-      subject.calculate_gross_revenue!.should be_zero
+    it 'returns cached value if requested' do
+      subject.gross_revenue_cents = 2100
+      subject.gross_revenue(:cached => true).should == 21.00
     end
-  end
 
-  describe '#before_save' do
-    it 'calculates gross revenue from source data' do
-      subject.source_data = "Drink a slab\tof diet tab"
-      subject.save!
-      subject.should_receive(:calculate_gross_revenue!)
-      subject.save!
+    it 'calculates anyway if no cached value exists' do
+      subject.source_data = File.new(path_to_fixture('order_logs/valid.tab'))
+      subject.create_orders!
+      subject.gross_revenue(:cached => true).should == 95.0
     end
   end
 
@@ -113,6 +111,19 @@ describe OrderLog do
       subject.source_data = File.new(path_to_fixture('order_logs/valid.tab'))
       subject.create_orders!(:force => true)
       subject.orders.count.should == 4
+    end
+  end
+
+  describe '#uploader_email' do
+    it 'delegates to uploader' do
+      ol = FactoryGirl.create(:order_log)
+      ol.uploader = FactoryGirl.create(:user, :email => 'testme@example.com')
+      ol.uploader_email.should == 'testme@example.com'
+    end
+
+    it 'returns nil if no uploader' do
+      ol = FactoryGirl.create(:order_log)
+      ol.uploader_email.should be_nil
     end
   end
 end

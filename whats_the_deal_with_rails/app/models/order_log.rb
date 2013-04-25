@@ -4,13 +4,13 @@ require 'csv'
 # a tab-delimited file.  It is responsible for aggregate reporting on said
 # collection, such as the calculation of gross revenue.
 class OrderLog < ActiveRecord::Base
-  include MoneyColumn::StoresMoney
-  stores_money :gross_revenue, :cents_attribute => "gross_revenue_cents"
-
   validates :source_data, :presence => true
   validate :source_data_is_tab_separated, :if => :source_data
 
   has_many :orders
+  belongs_to :uploader, :class_name => 'User'
+
+  delegate :email, :to => :uploader, :prefix => true, :allow_nil => true
 
   # Validation method - rudimentary checking to see if we have source_data
   # that is possibly tab-separated and can be parsed by CSV.
@@ -36,25 +36,45 @@ class OrderLog < ActiveRecord::Base
     write_attribute(:source_data, data)
   end
 
-  before_save :calculate_gross_revenue!
   after_create :create_orders!
 
-  # This method will be called every time the object is saved;
-  # if we have source data, it will set gross_revenue to the calculated
-  # gross revenue from parsing the source data (see
-  # #aggregate_gross_revenue_from_source_data).  If no source data
-  # exists yet, we'll just set gross_revenue to nil.
-  def calculate_gross_revenue!
-    self.gross_revenue = if source_data
-      aggregate_gross_revenue_from_source_data
+  # Every time we request the gross revenue on an order log, we'll run
+  # through all the orders and add up their totals.  We'll memoize it per
+  # instantiation of the order log, but naturally this is still going to
+  # be a heavy operation, so we'll also store the value in a cache
+  # column, which can be requested using an option passed in to this
+  # method.
+  # 
+  # Previously we were performing a calculation straight out of source data,
+  # but we moved away from it becase it was too implementation specific, and
+  # violated separation - it is the Order object's job to calculate a total.
+  def gross_revenue(options = {})
+    if options[:cached] && cents = gross_revenue_cents
+      Money.new(cents)
     else
-      nil
+      @gross_revenue ||= begin
+        gross_revenue_total = orders.inject(Money.new(0)) {
+          |total, order| total += order.total
+        }
+        self.gross_revenue_cents = gross_revenue_total.cents
+        save! if persisted? && changed?
+        gross_revenue_total
+      end
     end
-    gross_revenue || 0
+  end
+
+  # Is this order log record stale?  We determine staleness by inspecting
+  # #updated_at - if the record hasn't been updated in 10 minutes, it's stale.
+  # This can then be used to determine whether or not to pull data from the
+  # cache.
+  def stale?
+    updated_at < (Time.now - 1.minute)
   end
 
   # Directly sum the gross revenue from the source data, by enumerating
-  # the order rows and aggregating the quantity * price.
+  # the order rows and aggregating the quantity * price.  This is deprecated
+  # in the app now, but I'm leaving it in place for reviewers to see -
+  # this is the more performant way to retrieve this data.
   def aggregate_gross_revenue_from_source_data
     order_lines_from_source_data.inject(0) do |amount, order|
       if order['item price'] && order['purchase count']

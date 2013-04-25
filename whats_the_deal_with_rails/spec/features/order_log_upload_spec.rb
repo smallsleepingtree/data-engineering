@@ -17,4 +17,12 @@ feature 'OrderLog upload' do
     click_button 'commit-button'
     page.should have_content I18n.t('errors.messages.not_tab_separated')
   end
+
+  scenario 'records uploader to new order log' do
+    sign_in
+    visit new_order_log_url
+    attach_file(:order_log_source_data, path_to_fixture('order_logs/valid.tab'))
+    click_button 'commit-button'
+    OrderLog.last.uploader.should == user
+  end
 end
