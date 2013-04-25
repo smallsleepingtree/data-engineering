@@ -1,13 +1,2 @@
 <% subtitle t('titles.sub.user_registration') %>
-<%= simple_form_for @user, :html => { :class => 'form-horizontal' } do |f| %>
-  <fieldset>
-    <legend><%= t('user.form.legend') %></legend>
-    <%= f.error_notification %>
-    <%= f.input :email, :as => :email %>
-    <%= f.input :password, :as => :password %>
-    <%= f.input :password_confirmation, :as => :password %>
-    <div class="form-actions">
-      <%= f.submit nil, :class => 'btn btn-primary', :id => 'commit-button' %>
-    </div>
-  </fieldset>
-<% end %>
+<%= render 'signup_form', :user => @user %>

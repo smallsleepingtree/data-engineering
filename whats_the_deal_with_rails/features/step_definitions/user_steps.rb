@@ -34,14 +34,14 @@ When /^I register for a new account$/ do
   fill_in :user_email, :with => @mental_user[:email]
   fill_in :user_password, :with => @mental_user[:password]
   fill_in :user_password_confirmation, :with => @mental_user[:password]
-  click_button 'commit-button'
+  click_button 'register-button'
 end
 
 When /^I sign in$/ do
   visit new_session_url
   fill_in :session_email, :with => @mental_user[:email]
   fill_in :session_password, :with => @mental_user[:password]
-  click_button 'commit-button'
+  click_button 'signin-button'
 end
 
 Then /^I am informed that my new account is created$/ do

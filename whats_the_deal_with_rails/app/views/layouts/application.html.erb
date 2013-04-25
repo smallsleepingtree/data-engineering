@@ -12,6 +12,14 @@
     <div class="navbar-inner">
       <div class="container">
         <%= link_to t('titles.application'), root_url, :class => 'brand' %>
+        <ul class="nav">
+          <% if user_authorized? %>
+            <%= nav_link t('titles.nav.order_logs'), order_logs_url, :alts => [root_url] %>
+          <% end %>
+          <% if user_admin? %>
+            <%= nav_link t('titles.nav.users'), users_url %>
+          <% end %>
+        </ul>
         <div class="pull-right">
           <ul class="nav">
             <% if user_signed_in? %>

@@ -37,4 +37,9 @@ private
     user_signed_in? && current_user.authorized?
   end
   helper_method :user_authorized?
+
+  def user_admin?
+    user_signed_in? && current_user.admin?
+  end
+  helper_method :user_admin?
 end

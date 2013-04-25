@@ -2,13 +2,23 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
+  unauthorized: Until the admin authorizes your account, you're stuck here.
+  actions: Actions
+
   titles:
     application: WHAT'S THE DEAL
     limbo: YOU ARE IN LIMBO
     sub:
       upload_order_log: 'Upload Order Log'
       order_log_index: 'Order Logs'
+      orders_index: 'Orders'
       sign_in: 'Sign In'
+      sign_in_or_register: 'Sign In or Register'
+      user_registration: User Registration
+      users_index: User Administration
+    nav:
+      order_logs: Order Logs
+      users: Users
 
   helpers:
     submit:
@@ -22,8 +32,20 @@ en:
       not_tab_separated: "does not appear to be a tab-delimited file"
 
   session:
+    needed: You must be signed in to do anything at all.
+    created: Welcome!  You have successfully signed in.
+    redundant: But you're already signed in!  What's the big idea?
+    destroyed: You are now signed out.
+    failed_authentication: You entered an invalid email address or password.
     form:
       legend: 'Sign In'
+
+  user:
+    created: Your user account has been created.
+    authorized: The user has been authorized and can now move freely about the website.
+    rejected: That schmuck has been rejected. Probably not the first time.
+    form:
+      legend: Register for an Account
 
   order_log:
     new: 'Upload New Order Log'
@@ -39,3 +61,12 @@ en:
         filename: 'Filename'
         created_at: 'Created at'
         gross_revenue: 'Gross Revenue'
+
+  mail:
+    authorization:
+      pending:
+        subject: Some peon is begging you for authorization
+      authorize:
+        subject: Your request has been granted, you lucky fool!
+      reject:
+        subject: "Rejection is like the moon: spherical and reflective."

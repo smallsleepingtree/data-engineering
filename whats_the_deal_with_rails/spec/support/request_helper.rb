@@ -5,5 +5,5 @@ def sign_in(options = {})
   visit new_session_url
   fill_in :session_email, :with => options[:as].email
   fill_in :session_password, :with => options[:password]
-  click_button 'commit-button'
+  click_button 'signin-button'
 end
