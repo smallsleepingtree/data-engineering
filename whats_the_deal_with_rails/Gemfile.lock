@@ -112,6 +112,7 @@ GEM
       rspec-core (~> 2.13.0)
       rspec-expectations (~> 2.13.0)
       rspec-mocks (~> 2.13.0)
+    ruby-openid (2.2.3)
     simple_form (2.1.0)
       actionpack (~> 3.0)
       activemodel (~> 3.0)
@@ -145,6 +146,7 @@ DEPENDENCIES
   money_column
   rails (= 3.2.12)
   rspec-rails
+  ruby-openid
   simple_form
   sqlite3
   uglifier (>= 1.0.3)

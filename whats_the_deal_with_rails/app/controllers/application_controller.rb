@@ -1,3 +1,6 @@
+require 'openid'
+require 'openid/store/filesystem'
+
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
@@ -42,4 +45,22 @@ private
     user_signed_in? && current_user.admin?
   end
   helper_method :user_admin?
+
+  def openid_redirect_url(openid_url, options = {})
+    passthrough = {}
+    if user = options[:user]
+      passthrough[:email] = user.email
+    end
+    realm, return_to = root_url, complete_openid_consumer_url(passthrough)
+    openid_request = openid_consumer.begin(openid_url)
+    openid_request.redirect_url(realm, return_to)
+  rescue OpenID::DiscoveryFailure => e
+    (user.openid_errors ||= []) << 'bad_url' if user
+    nil
+  end
+
+  def openid_consumer
+    @openid_consumer ||= OpenID::Consumer.new(session,
+      OpenID::Store::Filesystem.new(File.join(Rails.root, 'tmp', 'openid')))
+  end
 end

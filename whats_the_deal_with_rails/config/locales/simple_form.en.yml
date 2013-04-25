@@ -11,6 +11,8 @@ en:
     error_notification:
       default_message: "Please review the problems below:"
     labels:
+      defaults:
+        openid_url: OpenID URL
       order_log:
         source_data: 'Order Log File'
     hints:

@@ -17,5 +17,11 @@ WhatsTheDealWithRails::Application.routes.draw do
     resources :orders
   end
 
+  resource :openid_consumer do
+    member do
+      get :complete
+    end
+  end
+
   root :to => 'order_logs#index'
 end

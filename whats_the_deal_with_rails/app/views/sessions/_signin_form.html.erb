@@ -2,8 +2,18 @@
   <fieldset>
     <legend><%= t('session.form.legend') %></legend>
     <%= f.error_notification %>
-    <%= f.input :email, :as => :email %>
-    <%= f.input :password, :as => :password %>
+    <br />
+    <div class="well well-small">
+      <%= f.input :openid_url, :required => false, :wrapper => :prepend, :class => 'inline' do %>
+        <span class="add-on"><i class="icon-openid"></i></span>
+        <%= f.input_field :openid_url %>
+      <% end %>
+    </div>
+    <h4>OR</h4>
+    <div class="well well-small">
+      <%= f.input :email, :as => :email, :required => false %>
+      <%= f.input :password, :as => :password, :required => false %>
+    </div>
     <div class="form-actions">
       <%= f.submit t('helpers.submit.session.create'), :class => 'btn btn-primary', :id => 'signin-button' %>
     </div>

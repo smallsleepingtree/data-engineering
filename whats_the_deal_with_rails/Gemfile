@@ -6,6 +6,7 @@ gem 'jquery-rails'
 gem 'simple_form'
 gem 'money_column'
 gem 'bcrypt-ruby', '~> 3.0.0'
+gem 'ruby-openid'
 
 group :assets do
   gem 'uglifier', '>= 1.0.3'

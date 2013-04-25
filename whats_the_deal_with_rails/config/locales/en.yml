@@ -70,3 +70,6 @@ en:
         subject: Your request has been granted, you lucky fool!
       reject:
         subject: "Rejection is like the moon: spherical and reflective."
+
+  openid:
+    failure: "Using OpenID is hard. %{message}"
