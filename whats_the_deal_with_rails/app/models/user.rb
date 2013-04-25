@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
 
   has_secure_password
 
-  validates :email, :uniqueness => true
+  validates :email, :uniqueness => true, :presence => true, :format => /.+@[\w\-]+\.[\w\-]+/
 
   after_create do
     unless authorized? || admin? || User.first_admin.nil?

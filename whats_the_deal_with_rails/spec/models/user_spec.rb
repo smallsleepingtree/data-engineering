@@ -9,6 +9,14 @@ describe User do
       new_user.should_not be_valid
       new_user.errors[:email].should_not be_empty
     end
+
+    it 'requires basic email format adherence' do
+      FactoryGirl.build(:user).should be_valid
+      FactoryGirl.build(:user, :email => 'what').should_not be_valid
+      FactoryGirl.build(:user, :email => 'thisguy@hisownhouse').should_not be_valid
+      FactoryGirl.build(:user, :email => 'okay_fine@This is a whole sentence. yay!').should_not be_valid
+      FactoryGirl.build(:user, :email => 'okay_fine@igetyourpoint.com').should be_valid
+    end
   end
 
   describe 'after_create' do
