@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Order do
   describe '#total' do
     it 'returns the price * quantity for the order' do
-      deal = FactoryGirl.create(:deal, :price => '1850')
+      deal = FactoryGirl.create(:deal, :price => '18.50')
       subject.deal = deal
       subject.quantity = 3
       subject.total.should == 55.50

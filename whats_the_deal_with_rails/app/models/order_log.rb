@@ -10,6 +10,8 @@ class OrderLog < ActiveRecord::Base
   validates :source_data, :presence => true
   validate :source_data_is_tab_separated, :if => :source_data
 
+  has_many :orders
+
   # Validation method - rudimentary checking to see if we have source_data
   # that is possibly tab-separated and can be parsed by CSV.
   def source_data_is_tab_separated
@@ -67,5 +69,19 @@ class OrderLog < ActiveRecord::Base
   # what you expect.
   def order_lines_from_source_data
     CSV.parse(source_data, :headers => true, :col_sep => "\t").map(&:to_hash)
+  end
+
+  # Generate an order for each line in the source data, and add that order to
+  # #orders.
+  def create_orders!
+    OrderLog.transaction do
+      order_lines_from_source_data.each do |order_line|
+        order = Order.from_log_entry(order_line)
+        order.order_log = self
+        order.save!
+      end
+      save!
+    end
+    orders(true)
   end
 end
