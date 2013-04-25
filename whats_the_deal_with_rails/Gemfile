@@ -4,7 +4,7 @@ gem 'rails', '3.2.12'
 gem 'sqlite3' # Database driver gem - autoset
 gem 'jquery-rails'
 gem 'simple_form'
-gem 'money'
+gem 'money_column'
 gem 'bcrypt-ruby', '~> 3.0.0'
 
 group :assets do

@@ -1,13 +1,11 @@
 require 'csv'
-require 'money_composer'
 
 # An OrderLog represents the collection of orders added through uploading
 # a tab-delimited file.  It is responsible for aggregate reporting on said
 # collection, such as the calculation of gross revenue.
 class OrderLog < ActiveRecord::Base
-  include MoneyComposer
-
-  money :gross_revenue
+  include MoneyColumn::StoresMoney
+  stores_money :gross_revenue, :cents_attribute => "gross_revenue_cents"
 
   validates :source_data, :presence => true
   validate :source_data_is_tab_separated, :if => :source_data
@@ -49,7 +47,7 @@ class OrderLog < ActiveRecord::Base
     else
       nil
     end
-    gross_revenue
+    gross_revenue || 0
   end
 
   # Directly sum the gross revenue from the source data, by enumerating
