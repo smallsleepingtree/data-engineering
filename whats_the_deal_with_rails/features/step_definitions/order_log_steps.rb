@@ -35,6 +35,20 @@ Then /^I (don't )?see the file in the list of recent uploads$/ do |do_not|
   end
 end
 
+Then /^I see a listing of each order in the log$/ do
+  within('#orders') do
+    @order_log.orders.each do |order|
+      [
+        order.customer_name, order.merchant_name,
+        order.deal_description, order.deal_price,
+        order.quantity, order.total
+      ].each do |element|
+        page.should have_content(element)
+      end
+    end
+  end
+end
+
 Then /^I do not see the order log details$/ do
   page.should_not have_css('#orders')
 end

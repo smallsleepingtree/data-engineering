@@ -75,4 +75,15 @@ describe OrderLog do
       ]
     end
   end
+
+  describe '#create_orders!' do
+    it 'creates orders for each order line' do
+      subject.source_data = File.new(path_to_fixture('order_logs/valid.tab'))
+      subject.create_orders!
+      subject.orders.count.should == 4
+      subject.orders.map(&:deal_description).should =~ [
+        "$10 off $20 of food", "$30 of awesome for $10", "$20 Sneakers for $5", "$20 Sneakers for $5"
+      ]
+    end
+  end
 end
