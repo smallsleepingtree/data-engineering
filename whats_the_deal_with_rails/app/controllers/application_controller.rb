@@ -1,5 +1,4 @@
-require 'openid'
-require 'openid/store/filesystem'
+require 'openid_agent'
 
 class ApplicationController < ActionController::Base
   protect_from_forgery
@@ -47,20 +46,14 @@ private
   helper_method :user_admin?
 
   def openid_redirect_url(openid_url, options = {})
-    passthrough = {}
-    if user = options[:user]
-      passthrough[:email] = user.email
-    end
-    realm, return_to = root_url, complete_openid_consumer_url(passthrough)
-    openid_request = openid_consumer.begin(openid_url)
-    openid_request.redirect_url(realm, return_to)
-  rescue OpenID::DiscoveryFailure => e
-    (user.openid_errors ||= []) << 'bad_url' if user
-    nil
+    openid_agent.redirect_url(openid_url,
+      :realm => root_url,
+      :return_to => complete_openid_consumer_url(options[:passthrough]),
+      :entity => options[:entity]
+    )
   end
 
-  def openid_consumer
-    @openid_consumer ||= OpenID::Consumer.new(session,
-      OpenID::Store::Filesystem.new(File.join(Rails.root, 'tmp', 'openid')))
+  def openid_agent
+    @openid_agent ||= OpenidAgent.new(session)
   end
 end

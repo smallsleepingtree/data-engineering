@@ -30,6 +30,9 @@ en:
   errors:
     messages:
       not_tab_separated: "does not appear to be a tab-delimited file"
+      bad_openid_url: "does not appear to be a valid OpenID URL"
+      or_openid_url: "required unless OpenID URL provided"
+      or_email: "required unless email provided"
 
   session:
     needed: You must be signed in to do anything at all.
@@ -73,3 +76,4 @@ en:
 
   openid:
     failure: "Using OpenID is hard. %{message}"
+    cancelled: "You cancelled your OpenID authentication!  Why?! %{message}"

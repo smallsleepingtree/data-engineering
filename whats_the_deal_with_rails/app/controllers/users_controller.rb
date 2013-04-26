@@ -9,9 +9,11 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
     if @user.valid? && @user.needs_openid_verification?
-      if (url = openid_redirect_url(@user.openid_url, :user => @user))
-        redirect_to url and return
-      end
+      url = openid_redirect_url(@user.openid_url,
+        :entity => @user,
+        :passthrough => { :email => @user.email }
+      )
+      (redirect_to url and return) if url
     end
     @user.save!
     flash[:notice] = t('user.created')

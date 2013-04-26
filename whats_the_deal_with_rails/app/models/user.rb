@@ -1,24 +1,23 @@
+require 'openid_validatable'
+
 class User < ActiveRecord::Base
+  include OpenidValidatable
+
   attr_accessible :email, :password, :password_confirmation, :openid_url
-  attr_accessor :openid_errors
 
   has_secure_password
 
   validates :email, :uniqueness => true, :presence => true, :format => /.+@[\w\-]+\.[\w\-]+/
   validates :password, :presence => true, :if => :password, :unless => lambda { openid_url.present? }
   validates :openid_url, :presence => true, :if => :openid_url, :unless => lambda { password.present? }
-  validates :openid_url, :uniqueness => true, :on => :create, :allow_nil => true
+  validates :openid_url, :uniqueness => true, :on => :create, :allow_blank => true
 
   validate :require_only_one_of_password_or_openid
-  validate :openid_url_has_no_issues
 
   def require_only_one_of_password_or_openid
-    errors.add(:password, 'unnecessary') if openid_url.present? && password.present?
-  end
-
-  def openid_url_has_no_issues
-    (openid_errors || []).each do |openid_error|
-      errors.add(:openid_url, openid_error)
+    if openid_url.present? && password.present?
+      errors[:password].clear
+      errors.add(:password, 'unnecessary')
     end
   end
 

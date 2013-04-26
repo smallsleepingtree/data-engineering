@@ -7,3 +7,15 @@ def sign_in(options = {})
   fill_in :session_password, :with => options[:password]
   click_button 'signin-button'
 end
+
+def stub_openid_agent(options = {})
+  response = double('response',
+    :status => options[:status] || :success,
+    :identity_url => options[:identity_url],
+    :message => options[:message]
+  )
+  openid_agent = OpenidAgent.new({})
+  openid_agent.should_receive(:complete)
+  openid_agent.stub!(:response).and_return(response)
+  OpenidAgent.stub!(:new).and_return(openid_agent)
+end
