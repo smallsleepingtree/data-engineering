@@ -16,3 +16,6 @@
 
 # Ignore database.yml file - generated from template via rake task
 /config/database.yml
+
+# Ignore results from simplecov
+/coverage
