@@ -4,6 +4,21 @@ require 'openid'
 feature 'OpenID authentication' do
   let(:user) { FactoryGirl.create(:authorized_user, :password => nil, :openid_url => 'flabooble') }
 
+  scenario 'when URL and password are both entered for creation' do
+    visit new_session_url
+    fill_in :user_openid_url, :with => 'something'
+    fill_in :user_password, :with => 'something'
+    click_button 'register-button'
+    page.should have_content(I18n.t('errors.attributes.password.unnecessary'))
+  end
+
+  scenario 'when neither OpenID URL nor email are entered for signing in' do
+    visit new_session_url
+    click_button 'signin-button'
+    page.should have_content(I18n.t('errors.messages.or_openid_url'))
+    page.should have_content(I18n.t('errors.messages.or_email'))
+  end
+
   scenario 'when bad URL is entered' do
     visit new_session_url
     fill_in :session_openid_url, :with => 'obviously bad url'

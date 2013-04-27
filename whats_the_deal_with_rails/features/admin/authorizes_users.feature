@@ -5,6 +5,7 @@ Feature: Admin authorizes users
     And I am an administrator
 
     When I sign in
+    And I choose to view the authorization pending list
 
     Then I see the user in the authorization pending list
 
@@ -19,6 +20,7 @@ Feature: Admin authorizes users
     And I am an administrator
 
     When I sign in
+    And I choose to view the authorization pending list
 
     Then I see the user in the authorization pending list
 
@@ -27,3 +29,11 @@ Feature: Admin authorizes users
     Then the user is not authorized to upload files
     And the user receives an email about their rejected authorization
     And I don't see the user in the authorization pending list
+
+  Scenario: Non-admin tries to authorize
+    Given I am an authorized user
+
+    When I sign in
+    And I choose to view the authorization pending list
+
+    Then I am informed that I am unauthorized

@@ -17,8 +17,11 @@ When /^I choose to (authorize|reject) the user's request$/ do |decision|
   click_link "#{decision}_user_#{@pending_user.id}_authorization"
 end
 
-Then /^I (don't )?see the user in the authorization pending list$/ do |do_not|
+When /^I choose to view the authorization pending list$/ do
   visit users_url
+end
+
+Then /^I (don't )?see the user in the authorization pending list$/ do |do_not|
   email = @mental_pending_user[:email]
   within('#pending-authorizations') do
     if do_not
