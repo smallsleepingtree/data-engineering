@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.12'
-gem 'sqlite3' # Database driver gem - autoset
+gem 'pg' # Database driver gem - autoset
 gem 'jquery-rails'
 gem 'simple_form'
 gem 'money_column'
