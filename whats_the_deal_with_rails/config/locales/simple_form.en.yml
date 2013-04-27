@@ -18,3 +18,7 @@ en:
     hints:
       order_log:
         source_data: 'Upload a tab-delimited file containing a list of orders.'
+    placeholders:
+      defaults:
+        openid_url: http://your.openid.url
+        email: please@remain.com
