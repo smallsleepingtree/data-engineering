@@ -1,6 +1,6 @@
 # Hey there, DevOps.
 
-In case you haven't read the memo (which would surprise me, since we printed it on neon fuschia stock using 24pt Comic Sans, to avoid a repeat of last year's debacle in which the entire 7th floor claimed to be surprised by the paper airplane ban, leading to an ill-conceived protest now commemorated every month on Lethal Papercut Awareness Day, but I digress), LivingSocial recently acquired Jerry Seinfeld's most recent internet venture, WhatsTheDealWithDeals.biz.  Those responsible for the acquisition will be subject to an intensive internal "training," but [what's done is done](http://nfs.sparknotes.com/macbeth/page_96.html), and we're now tasked with integrating WTDWD.biz's data into our systems.
+In case you haven't read the memo (which would surprise me, since we printed it on neon fuschia stock using 24pt Comic Sans, to avoid a repeat of last year's debacle in which the entire 7th floor claimed to be surprised by the paper airplane ban, leading to an ill-conceived protest now commemorated every month on Lethal Papercut Awareness Day, but I digress), LivingSocial recently acquired Jerry Seinfeld's latest internet venture, WhatsTheDealWithDeals.biz.  Those responsible for the acquisition will be subject to an intensive internal "training," but [what's done is done](http://nfs.sparknotes.com/macbeth/page_96.html), and we're now tasked with integrating WTDWD.biz's data into our systems.
 
 ### The Usual Problem: Bears
 
@@ -25,6 +25,10 @@ The Rails app is in a directory *within* the smallsleepingtree directory you jus
     $ cd smallsleepingtree/whats_the_deal_with_rails
 
 There's a .ruby-version file in that directory, in case you're using [rbenv](http://rbenv.org), [rvm](https://rvm.io), or [chruby](https://github.com/postmodern/chruby).  If not, just make sure you've got Ruby 1.9.x in your path.
+
+To make sure you've got all the dependencies needed:
+
+    $ bundle install          # will check your current gems, and install missing ones
 
 I know you're getting excited now, but before you can spin up the server, you'll need to choose a database config.  If you're in a hurry, SQLite is your best choice, but if you'd rather use PostgreSQL or MySQL, that's fine, too.  Don't let me tell you how to live your life.  You're DevOps.
 

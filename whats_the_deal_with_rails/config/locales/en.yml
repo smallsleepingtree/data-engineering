@@ -33,8 +33,16 @@ en:
       bad_openid_url: "does not appear to be a valid OpenID URL"
       or_openid_url: "required unless OpenID URL provided"
       or_email: "required unless email provided"
+      has_invalid_orders: "contains bad order data and can't be parsed"
+    attributes:
+      password:
+        unnecessary: "not required if using OpenID"
 
   session:
+    sign_in: 'Sign in'
+    sign_out: 'Sign out'
+    welcome:
+      html: 'Welcome, <strong>%{addressee}</strong>.'
     needed: You must be signed in to do anything at all.
     created: Welcome!  You have successfully signed in.
     redundant: But you're already signed in!  What's the big idea?

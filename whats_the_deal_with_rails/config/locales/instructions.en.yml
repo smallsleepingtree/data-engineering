@@ -1,0 +1,94 @@
+en:
+  instructions:
+    session:
+      new:
+        html: |
+          <h3>Who are you?</h3>
+          <p>
+            We bought fancy computers with frankly ridiculous amounts of flops
+            and texels and wads of cache, and still our 11-year old shepherd mix Toby
+            (whose eyes have become as cloudy as a Portland winter) is better at
+            face recognition.  So it's embarassing to ask, but could you please let
+            us know who you are?
+          </p>
+          <h4>Instructions</h4>
+          <p>
+            Use the <strong>Sign In</strong> form if you already
+            have an account, or the <strong>Register for an Account</strong> form
+            if you're new here.
+          </p>
+    order_logs:
+      index:
+        html: |
+          <p>
+            That's not an imperative.  We're not asking you to put in an order for
+            firewood. Though, admittedly, it's gotten a lot less comfortable here
+            since our gas was shut off.  We offered the gas company early access to
+            several enticing deals (such as our ever popular <strong>$89 for $90
+            worth of cash</strong>), but they were surprisingly uninterested.
+          </p>
+          <h4>Instructions</h4>
+          <p>
+            Here's a list of files that have already been uploaded - click on the
+            ID or filename to view more details.  Or, if you've got some exciting
+            order-filled tab-delimited files sitting around, upload them!  Just use
+            the button below the list.  The blue one.  Blue as the pilot
+            light that now lives only in our wistful dreams.
+          </p>
+      new:
+        html: |
+          <h4>Thank You, from LivingSocial® and Jerry Seinfeld Presents What's the
+            Deal With Deals</h4>
+          <p>
+            What you're doing here is mind-bogglingly important.  Somewhere between
+            millions and dozens of dedicated customers braved the admittedly disastrous
+            wreck of a site that was What's the Deal With Deals, and the bravest of
+            those somehow managed to purchase deals.  Then our loosely organized team
+            of bears wrote those orders down on chocolate chip packages, and we sort of
+            forgot about them.  We were too busy spinning in circles in our fabulous
+            VC-funded Herman Miller chairs.
+          </p>
+          <p>
+            Now it's up to you, courageous unpaid volunteer (did we forget to mention
+            the "unpaid" part?  We've been swamped here, sorry) to make sure little
+            Timmy's dad gets his <strong>$40 for $38 worth of Child-proof Well
+            Covers</strong>.
+          </p>
+    users:
+      index:
+        html: |
+          <p>
+            Well, aren't you special. The 1%, the aristocracy, et cetera. Your power
+            is almost palpable - we could feel it as soon as you visited this web page.
+            And all of these hopeful potential Tab-Delimited File Uploaders feel it,
+            too, as they sit awaiting your decision, drenching their only casual-formal
+            attire in the kind of sweat that leaves stains.  Fortunately for them,
+            we've got a great <strong>$165 for a 3-month supply of Tide</strong> offer
+            in the pipeline.
+          </p>
+          <h4>Instructions</h4>
+          <p>
+            Users in the following list have created accounts, but aren't authorized to
+            upload files yet. Click the
+            <span class="btn btn-mini btn-success">
+              <i class="icon-thumbs-up"></i>
+            </span>
+            button to approve the user, and the
+            <span class="btn btn-mini btn-danger">
+              <i class="icon-thumbs-down"></i>
+            </span>
+            button to reject them.  Keep in mind that rejection here, just like in real
+            life, is not easily undoable - it would require opening a ticket with DevOps,
+            which is a fancy way of saying "giving up."  Rejected users will no longer
+            appear in this list, or most likely anywhere in public ever again.
+          </p>
+    orders:
+      index:
+        html: |
+          <p>
+            Here are the orders we found in the tab-delimited file.  These are now in
+            a Database&trade;, which is sort of like a farm, except that instead of
+            ponies and muddy boots and lemonade, it has transactions and foreign keys
+            and triggers.  If any of the following doesn't look right to you, please
+            let us know and we'll recommend a good optometrist.
+          </p>

@@ -1,5 +1,6 @@
 <% subtitle t('titles.sub.order_log_index') %>
 <h1><%= t('titles.sub.order_log_index') %></h1>
+<%= t('instructions.order_logs.index.html') %>
 <table class="table table-striped">
   <thead>
     <tr>
@@ -15,7 +16,7 @@
     <% @order_logs.each do |order_log| %>
       <tr>
         <td><%= link_to order_log.id, order_log_orders_url(order_log) %></td>
-        <td><%= order_log.filename || "<em>#{t('order_log.form.missing_filename')}</em>".html_safe %></td>
+        <td><%= link_to order_log.filename || "<em>#{t('order_log.form.missing_filename')}</em>".html_safe, order_log_orders_url(order_log) %></td>
         <td><%= order_log.gross_revenue(:cached => order_log.stale?).format %></td>
         <td><%= order_log.orders.count %></td>
         <td><%= order_log.uploader_email %></td>

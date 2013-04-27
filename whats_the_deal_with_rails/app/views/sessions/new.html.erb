@@ -1,12 +1,13 @@
 <% subtitle t('titles.sub.sign_in_or_register') %>
+<%= t('instructions.session.new.html') %>
 <div class="row">
   <div class="span6">
-    <div class="well">
+    <div class="well well-small">
       <%= render 'sessions/signin_form' %>
     </div>
   </div>
   <div class="span6">
-    <div class="well">
+    <div class="well well-small">
       <%= render 'users/signup_form', :user => User.new %>
     </div>
   </div>
