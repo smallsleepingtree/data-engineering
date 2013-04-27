@@ -73,6 +73,14 @@ describe OrderLog do
     end
   end
 
+  describe '#aggregate_gross_revenue_from_source_data' do
+    it 'sums gross revenue by directly from source data, bypassing orders' do
+      subject.should_receive(:orders).never
+      subject.source_data = File.new(path_to_fixture('order_logs/valid.tab'))
+      subject.aggregate_gross_revenue_from_source_data.should == 95.0
+    end
+  end
+
   describe '#order_lines_from_source_data' do
     it 'returns array containing a hash for each order line' do
       subject.source_data = File.new(path_to_fixture('order_logs/valid.tab'))
