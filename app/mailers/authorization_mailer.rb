@@ -1,5 +1,5 @@
 class AuthorizationMailer < ActionMailer::Base
-  default from: "from@example.com"
+  default from: "admin@smallsleepingtree.com"
 
   def pending_authorization(user, admin)
     @user = user
