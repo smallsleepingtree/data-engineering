@@ -28,8 +28,8 @@ class User < ActiveRecord::Base
   end
 
   after_create do
-    unless authorized? || admin? || User.first_admin.nil?
-      AuthorizationMailer.pending_authorization(self, User.first_admin).deliver
+    unless authorized? || admin? || (admins = User.where(:admin => true).all).empty?
+      AuthorizationMailer.pending_authorization(self, admins).deliver
     end
   end
 

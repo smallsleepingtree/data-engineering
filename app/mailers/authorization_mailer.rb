@@ -1,10 +1,10 @@
 class AuthorizationMailer < ActionMailer::Base
   default from: "admin@smallsleepingtree.com"
 
-  def pending_authorization(user, admin)
+  def pending_authorization(user, admins)
     @user = user
-    @admin = admin
-    mail :to => admin.email, :subject => t('mail.authorization.pending.subject')
+    @admins = admins
+    mail :to => admins.map(&:email), :subject => t('mail.authorization.pending.subject')
   end
 
   def authorize_notification(user)
