@@ -1,4 +1,8 @@
 WhatsTheDealWithRails::Application.routes.draw do
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: "/letter_opener"
+  end
+
   get 'limbo' => 'sessions#limbo', :as => :limbo
   resource :session do
     member do

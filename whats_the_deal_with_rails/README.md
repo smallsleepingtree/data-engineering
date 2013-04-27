@@ -13,3 +13,9 @@ We're excited for you to join the LivingSocial family!  We know this transition 
 1. Remember to breathe.
 1. Have fun.
 1. Are you done?  If so, go home and take a bath, or watch something educational on the telly!  Congratulations.
+
+## Reading emails
+
+Since we're suspicious of your ability to use email, we've set up an interface for reading all emails sent by the system, at [http://localhost:3000/letter_opener](http://localhost:3000/letter_opener).
+
+**All** emails will be displayed here, regardless of who the intended audience is, so security has been tossed out like a pancake your cat accidentally sat on.  Think of it as a much less interesting or relevant WikiLeaks.
