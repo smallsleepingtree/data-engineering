@@ -4,6 +4,11 @@ class Deal < ActiveRecord::Base
 
   belongs_to :merchant
 
+  validates :description, :presence => true
+  validates :price, :presence => true
+  validates :merchant, :presence => true
+  validates_associated :merchant
+
   delegate :name, :address, :to => :merchant, :prefix => true
 
   def self.from_log_entry(entry)

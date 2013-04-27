@@ -1,7 +1,10 @@
 class Order < ActiveRecord::Base
-  belongs_to :deal
-  belongs_to :customer
+  belongs_to :deal, :validate => true
+  belongs_to :customer, :validate => true
   belongs_to :order_log
+
+  validates :customer, :presence => true
+  validates :deal, :presence => true
 
   delegate :merchant, :to => :deal
   delegate :description, :price, :to => :deal, :prefix => true

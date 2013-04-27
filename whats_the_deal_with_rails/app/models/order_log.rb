@@ -5,6 +5,7 @@ require 'csv'
 # collection, such as the calculation of gross revenue.
 class OrderLog < ActiveRecord::Base
   validates :source_data, :presence => true
+  validates_associated :orders
   validate :source_data_is_tab_separated, :if => :source_data
 
   has_many :orders
@@ -37,6 +38,11 @@ class OrderLog < ActiveRecord::Base
   end
 
   after_create :create_orders!
+  after_validation do
+    if errors[:orders].present?
+      errors.add(:source_data, :has_invalid_orders)
+    end
+  end
 
   # Every time we request the gross revenue on an order log, we'll run
   # through all the orders and add up their totals.  We'll memoize it per
@@ -103,8 +109,7 @@ class OrderLog < ActiveRecord::Base
         self.orders.destroy_all
         order_lines_from_source_data.each do |order_line|
           order = Order.from_log_entry(order_line)
-          order.order_log = self
-          order.save!
+          orders << order
         end
         save!
       end
