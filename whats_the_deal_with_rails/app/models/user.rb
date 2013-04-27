@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
   def require_only_one_of_password_or_openid
     if openid_url.present? && password.present?
       errors[:password].clear
-      errors.add(:password, 'unnecessary')
+      errors.add(:password, :unnecessary)
     end
   end
 
