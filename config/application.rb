@@ -65,6 +65,10 @@ module WhatsTheDealWithRails
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
 
+    # Add images to assets path (for glyphs)
     config.assets.paths << Rails.root.join("app", "assets", "images")
+
+    # precompile bootstrap.js as well
+    config.assets.precompile += ['bootstrap.js']
   end
 end
