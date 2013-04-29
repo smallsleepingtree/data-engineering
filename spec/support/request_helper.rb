@@ -8,6 +8,10 @@ def sign_in(options = {})
   click_button 'signin-button'
 end
 
+def sign_out
+  click_link I18n.t('session.sign_out')
+end
+
 def stub_openid_agent(options = {})
   response = double('response',
     :status => options[:status] || :success,

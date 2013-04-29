@@ -5,11 +5,11 @@ FactoryGirl.define do
 
     factory :authorized_user do
       authorized true
-    end
 
-    factory :admin_user do
-      email 'admin@example.com'
-      admin true
+      factory :admin_user do
+        email 'admin@example.com'
+        admin true
+      end
     end
   end
 end

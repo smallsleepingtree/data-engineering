@@ -17,8 +17,8 @@
         <td><%= pending_user.email %></td>
         <td><%= pending_user.created_at %></td>
         <td>
-          <%= link_to glyph(:thumbs_up), authorize_user_path(pending_user), :method => :put, :class => 'btn btn-mini btn-success', :id => "authorize_user_#{pending_user.id}_authorization", :title => t('authorize', :default => "Authorize") %>
-          <%= link_to glyph(:thumbs_down), reject_user_path(pending_user), :method => :put, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger', :id => "reject_user_#{pending_user.id}_authorization", :title => t('reject', :default => "Reject") %>
+          <%= link_to glyph(:thumbs_up), authorize_user_path(pending_user), :method => :put, :class => 'btn btn-mini btn-success', :id => "authorize_user_#{pending_user.id}_authorization", :title => t('user.administration.authorize', :default => "Authorize") %>
+          <%= link_to glyph(:thumbs_down), reject_user_path(pending_user), :method => :put, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger', :id => "reject_user_#{pending_user.id}_authorization", :title => t('user.administration.reject', :default => "Reject") %>
         </td>
       </tr>
     <% end %>
