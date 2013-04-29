@@ -17,6 +17,12 @@ describe User do
       FactoryGirl.build(:user, :email => 'okay_fine@This is a whole sentence. yay!').should_not be_valid
       FactoryGirl.build(:user, :email => 'okay_fine@igetyourpoint.com').should be_valid
     end
+
+    it 'resets openid_url to nil if blank string' do
+      user = FactoryGirl.build(:user, :email => 'what', :openid_url => '')
+      user.valid?
+      user.openid_url.should be_nil
+    end
   end
 
   describe 'after_create' do

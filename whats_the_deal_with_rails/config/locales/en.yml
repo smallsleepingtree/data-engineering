@@ -57,6 +57,9 @@ en:
     rejected: That schmuck has been rejected. Probably not the first time.
     form:
       legend: Register for an Account
+    administration:
+      authorize: Authorize
+      reject: Reject
 
   order_log:
     new: 'Upload New Order Log'

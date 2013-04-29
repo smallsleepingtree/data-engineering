@@ -24,6 +24,8 @@ class User < ActiveRecord::Base
   before_validation do
     if openid_url.present?
       self.password_digest = '0'
+    else
+      self.openid_url = nil
     end
   end
 
